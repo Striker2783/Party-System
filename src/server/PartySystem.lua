@@ -17,7 +17,7 @@ function module.new()
 	return self
 end
 
-function module:findPartyFromPlayer(Player: Player)
+function module:findPartyFromPlayer(Player: Player): PartyMod.Party
 	for i, v in pairs(self.Parties) do
 		if v:hasPlayer(Player) then
 			return v
@@ -25,7 +25,13 @@ function module:findPartyFromPlayer(Player: Player)
 	end
 end
 
-function module:playerLeft(Player: Player) end
+function module:playerLeft(Player: Player)
+	local Party = self:findPartyFromPlayer(Player)
+	if not Party then
+		return
+	end
+	Party:PlayerLeftGame()
+end
 
 function module:playerJoined(Player: Player)
 	self:newParty(Player)
@@ -49,5 +55,9 @@ end
 function module:removeParty()
 	--TODO
 end
+
+export type PartySystem = typeof(setmetatable({}, module)) & {
+	Parties: { [number]: PartyMod.Party },
+}
 
 return module

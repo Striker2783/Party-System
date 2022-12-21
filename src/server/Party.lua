@@ -4,7 +4,7 @@ local module = {
 }
 module.__index = module
 
-function module.new(Player: Player?)
+function module.new(Player: Player?): Party
 	local self = {
 		Name = nil,
 		Players = {},
@@ -12,7 +12,7 @@ function module.new(Player: Player?)
 	setmetatable(self, module)
 	if Player and Player:IsA("Player") then
 		self:addPlayer(Player)
-		self:changeName(Player.Name + "\'s Party")
+		self:changeName(Player.Name + "'s Party")
 	end
 	return self
 end
@@ -30,17 +30,17 @@ function module:addPlayer(Player: Player)
 end
 
 function module:PlayerJoinedAnotherParty(Player: Player)
-    self:removePlayer(Player)
-    --TODO
+	self:removePlayer(Player)
+	--TODO
 end
 
 function module:PlayerLeftParty(Player: Player)
 	self:removePlayer(Player)
-    --TODO
+	--TODO
 end
 
 function module:PlayerLeftGame(Player: Player)
-    self:removePlayer(Player);
+	self:removePlayer(Player)
 end
 
 function module:removePlayer(Player: Player)
@@ -62,16 +62,21 @@ function module:getPlayerPos(Player: Player): number
 end
 
 function module.getPartySystem()
-    return script.Parent.Parent.getPartySystem:Invoke();
+	return script.Parent.Parent.getPartySystem:Invoke()
 end
 
 function module:hasPlayer(Player: Player)
 	for i, v in pairs(self.Players) do
-		if (Player == v)  then
-			return true;
+		if Player == v then
+			return true
 		end
 	end
-	return false;
+	return false
 end
+
+export type Party = typeof(setmetatable({}, module)) & {
+	Players: { [number]: string },
+	Name: string,
+}
 
 return module
