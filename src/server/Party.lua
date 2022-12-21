@@ -12,7 +12,7 @@ function module.new(Player: Player?)
 	setmetatable(self, module)
 	if Player and Player:IsA("Player") then
 		self:addPlayer(Player)
-		self:changeName(Player.Name)
+		self:changeName(Player.Name + "\'s Party")
 	end
 	return self
 end
@@ -63,6 +63,15 @@ end
 
 function module.getPartySystem()
     return script.Parent.Parent.getPartySystem:Invoke();
+end
+
+function module:hasPlayer(Player: Player)
+	for i, v in pairs(self.Players) do
+		if (Player == v)  then
+			return true;
+		end
+	end
+	return false;
 end
 
 return module

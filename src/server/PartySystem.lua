@@ -17,6 +17,14 @@ function module.new()
 	return self
 end
 
+function module:findPartyFromPlayer(Player: Player)
+	for i, v in pairs(self.Parties) do
+		if v:hasPlayer(Player) then
+			return v
+		end
+	end
+end
+
 function module:playerLeft(Player: Player) end
 
 function module:playerJoined(Player: Player)
@@ -30,8 +38,16 @@ function module:newParty(Player: Player)
 	local newParty = PartyMod.new(Player)
 end
 
-function module:startParty() end
+function module:partyChangedName()
+	--TODO
+end
 
-function module:removeParty() end
+function module:startParty()
+	--TODO
+end
+
+function module:removeParty()
+	--TODO
+end
 
 return module
