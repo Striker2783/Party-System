@@ -1,3 +1,3 @@
-local PartySys = require(script.Parent.PartySystem);
+local PartySys = require(script.Parent.PartySystem)
 
-local t = PartySys.new();
+local t = PartySys.new()
