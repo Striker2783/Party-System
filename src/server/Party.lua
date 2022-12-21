@@ -29,14 +29,24 @@ function module:addPlayer(Player: Player)
 	local PartyLocations = game.Workspace.PartyLocations:Clone()
 end
 
-function module:removePlayer(Player: Player) 
-    local Pos = self:getPlayerPos(Player);
-    table.remove(self.Players, Pos);
-    local Party = script.Parent.Parent.getPartySystem:Invoke();
-    Party:newParty(Player);
+function module:PlayerJoinedAnotherParty(Player: Player)
+    self:removePlayer(Player)
+    --TODO
 end
 
-function module:start() end
+function module:PlayerLeftParty(Player: Player)
+	self:removePlayer(Player)
+    --TODO
+end
+
+function module:PlayerLeftGame(Player: Player)
+    self:removePlayer(Player);
+end
+
+function module:removePlayer(Player: Player)
+	local Pos = self:getPlayerPos(Player)
+	table.remove(self.Players, Pos)
+end
 
 function module:isFull(): boolean
 	return #self.Players >= self.Limit
@@ -49,6 +59,10 @@ function module:getPlayerPos(Player: Player): number
 		end
 	end
 	return 0
+end
+
+function module.getPartySystem()
+    return script.Parent.Parent.getPartySystem:Invoke();
 end
 
 return module
