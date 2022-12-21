@@ -29,7 +29,12 @@ function module:addPlayer(Player: Player)
 	local PartyLocations = game.Workspace.PartyLocations:Clone()
 end
 
-function module:removePlayer(Player: Player) end
+function module:removePlayer(Player: Player) 
+    local Pos = self:getPlayerPos(Player);
+    table.remove(self.Players, Pos);
+    local Party = script.Parent.Parent.getPartySystem:Invoke();
+    Party:newParty(Player);
+end
 
 function module:start() end
 
