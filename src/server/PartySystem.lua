@@ -1,11 +1,11 @@
 local PartyMod = require(script.Parent.Party) --Here
 
 local module = {}
-module.__index = module
+module.__index = module -- set as metamethod
 
 function module.new()
 	local self = {
-		Parties = {}, --Want to store Party objec
+		Parties = {},
 	}
 	setmetatable(self, module)
 	game.Players.PlayerAdded:Connect(function(player)
