@@ -3,8 +3,8 @@ local PartyMod = require(script.Parent.Party) --Here
 local module = {}
 module.__index = module -- set as metamethod
 
-function module.new()
-	local self = {
+function module.new(): PartySystem
+	local self: OriPartySystem = {
 		Parties = {},
 	}
 	setmetatable(self, module)
@@ -17,7 +17,7 @@ function module.new()
 	return self
 end
 
-function module:findPartyFromPlayer(Player: Player): PartyMod.Party
+function module:findPartyFromPlayer(Player: Player): PartyMod.Party?
 	for i, v in pairs(self.Parties) do
 		if v:hasPlayer(Player) then
 			return v
@@ -55,9 +55,9 @@ end
 function module:removeParty()
 	--TODO
 end
-
-export type PartySystem = typeof(setmetatable({}, module)) & {
+export type OriPartySystem = {
 	Parties: { [number]: PartyMod.Party },
 }
+export type PartySystem = typeof(setmetatable({}, module)) & OriPartySystem
 
 return module

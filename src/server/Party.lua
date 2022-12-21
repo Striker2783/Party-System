@@ -65,7 +65,7 @@ function module.getPartySystem()
 	return script.Parent.Parent.getPartySystem:Invoke()
 end
 
-function module:hasPlayer(Player: Player)
+function module:hasPlayer(Player: Player) : boolean
 	for i, v in pairs(self.Players) do
 		if Player == v then
 			return true
@@ -74,9 +74,11 @@ function module:hasPlayer(Player: Player)
 	return false
 end
 
-export type Party = typeof(setmetatable({}, module)) & {
+export type OriParty = {
 	Players: { [number]: string },
 	Name: string,
 }
+
+export type Party = typeof(setmetatable({}, module)) & OriParty
 
 return module
