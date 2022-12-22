@@ -45,7 +45,9 @@ end
 
 function module:removePlayer(Player: Player)
 	local Pos = self:getPlayerPos(Player)
-	table.remove(self.Players, Pos)
+	if Pos then
+		table.remove(self.Players, Pos)
+	end
 end
 
 function module:isFull(): boolean
@@ -65,7 +67,7 @@ function module.getPartySystem()
 	return script.Parent.Parent.getPartySystem:Invoke()
 end
 
-function module:hasPlayer(Player: Player) : boolean
+function module:hasPlayer(Player: Player): boolean
 	for i, v in pairs(self.Players) do
 		if Player == v then
 			return true
